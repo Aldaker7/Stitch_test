@@ -1,0 +1,31 @@
+{% extends 'css.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Stitch</title>
+</head>
+{% block content %}
+<body>
+
+
+<div class="login-page">
+    <h2 style="text-align:center;font-weight:bold;font-size:35px;height:100%;font-family: 'jaf-facitweb'">Sign up</h2>
+  <div class="form">
+    <form class="register-form login_form">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <!--<p class="message">Already registered? <a href="#">Sign In</a></p>-->
+    </form>
+
+    <form class="login-form login_form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input value="Register" type="submit">
+        <p class="message">already registered? <a href="{% url 'login' %}">Login</a></p>
+
+    </form>
+  </div>
+</div>
+</body>
+{% endblock %}

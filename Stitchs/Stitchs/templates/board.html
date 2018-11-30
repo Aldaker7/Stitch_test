@@ -1,0 +1,115 @@
+{% extends 'css.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Stitch</title>
+</head>
+
+<!--sign out button on navbar-->
+{% block navbar %}
+
+<div class="col-sm-6" style="float:right;text-align:right">
+    <a class="btn btn-success my-2 my-sm-0" href="{%url 'logout' %}">Log out</a>
+</div>
+{%endblock%}
+
+{% block content %}
+
+<!--pop up screen for create-->
+<body>
+
+
+
+<div class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div>
+        <div class="popupCloseButton">X</div>
+        <!--ssssssssssssssss-->
+        <div class="login-page">
+            <div class="form">
+                <form class="login-form page_form " method="POST" action="{%url 'create'%}">
+                    {%csrf_token%}
+                    <input name="title_board" type="text" placeholder="Add title here" required>
+                    <input value="Create a board" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Pop up screen-->
+<script>
+$(document).ready(function () {
+  $(window).load(function () {
+    $(".trigger_popup_fricc").click(function(){
+       $('.hover_bkgr_fricc').show();
+    });
+    <!--$('.hover_bkgr_fricc').click(function(){-->
+        <!--$('.hover_bkgr_fricc').hide();-->
+    <!--});-->
+    $('.popupCloseButton').click(function(){
+        $('.hover_bkgr_fricc').hide();
+    });
+});
+});
+
+</script>
+<!--End of script-->
+
+<!--Start of Board page-->
+
+<!--Left side nav-->
+
+<div class="navbar navbar-inverse navbar-fixed-left" style="background-color:#fff;color:#000">
+<h1 style="margin-left:10%;font-weight:bold">Board</h1>
+ <a class="navbar-brand trigger_popup_fricc"
+    style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica '>
+     Create board</a>
+<ul class="nav navbar-nav" stye="color:#fff">
+    <!--<a class="navbar-brand" style='margin-top:20%;color:#fff;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'create_member' %}"><li>Create member</li></a>-->
+    <!--<a class="navbar-brand " style='margin-top:20%;color:#fff;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'list_members' %}">List Members</a>-->
+
+    </ul>
+</div>
+{% if update == True %}
+
+                <form class="login-form page_form " method="POST" action="{%url 'updates_board' board_id%}">
+                    {%csrf_token%}
+                    <input style="width:100%" name="title_board" type="text" placeholder="Add title here" value="{{board.title}}" required>
+                    <input  value="Rename board" type="submit">
+                </form>
+
+{% endif %}
+
+ {% for item in form %}
+
+{% if item.active == True %}
+<div class="container col-md-6" style="width:200px;height:100px;">
+        <a href="{%url 'updates_board' item.id%}" style="color:#fff;margin-right:32%;text-align:right"><i class="fa fa-pencil"></i></a>
+        <a class='trigger_popup_fricc' href="{% url 'archive_board' item.id%}" style="color:#fff;text-align:right"><i class="fa fa-archive"></i></a>
+<a href="{% url 'list' item.id 1%}">
+ <div class="row">
+    <div class="col-sm-12">
+     <!--<div class="board-tile-details is-badged">-->
+         <div title="Untitled board" dir="auto" class="board-tile-details-name">
+             <div style="overflow: hidden; text-overflow: ellipsis;
+              -webkit-box-orient: vertical; display: -webkit-box;
+               -webkit-line-clamp: 2;height:75px;width:200px;">
+                 <p style="color:#fff;font-weight:bold;">
+
+                     {{item.title}}
+                 </p>
+             </div>
+         </div>
+     <!--</div>-->
+    </div>
+
+ </div>
+    </a>
+</div>
+{% endif %}
+{% endfor %}
+
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdnavbarnavbarn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+.page_form {
+  width: 360px;
+  padding: 3% 0 0;
+  margin: auto;
+}
+.login_form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+input[type=submit] {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #298FCA;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+input[type=submit]:hover,input[type=submit]:active,input[type=submit]:focus {
+  background: #185579;
+}
+.form .message {
+  margin: 15px 0 0;
+  color: #b3b3b3;
+  font-size: 12px;
+}
+.form .message a {
+  color: #298FCA;
+  text-decoration: none;
+}
+.form .register-form {
+  display: none;
+}
+.container {
+  border-radius: 5%;
+  background-color: #298FCA;
+  position: relative;
+  z-index: 1;
+  width:400px;
+  max-width: 800px;
+  margin-left: 20%;
+  margin-top :3%;
+}
+
+.container .info {
+  margin: 50px auto;
+  text-align: center;
+}
+.container .info h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  font-size: 36px;
+  font-weight: 300;
+  color: #1a1a1a;
+}
+.container .info span {
+  color: #4d4d4d;
+  font-size: 12px;
+}
+.container .info span a {
+  color: #000000;
+  text-decoration: none;
+}
+.container .info span .fa {
+  color: #EF3B3A;
+}
+.navbar {
+    border-radius: 0px;
+    background-color: #333;
+    margin-bottom: 0;
+}
+body {
+  background: #e1e5e8; /* fallback for old browsers */
+
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.navbar-fixed-left {
+  width: 140px;
+  position: fixed;
+  border-radius: 1%;
+  height: 100%;
+  padding-top:3%;
+}
+
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 139px;
+}
+
+<!--.navbar-fixed-left + .container {-->
+  <!--padding-left: 160px;-->
+<!--}-->
+.navbar-inverse {
+    background-image: -webkit-linear-gradient(top,#caced0,#caced0 100%);
+    border-color: #caced0;
+    }
+.board-tile-fade {
+
+    bottom: 0;
+    left: 0;
+    <!--position: absolute;-->
+    right: 0;
+    top: 0;
+    width:200px;
+}
+.board-tile, .board-tile-fade {
+
+    border-radius: 3px;
+    display: block;
+}
+.board-tile {
+
+    background-color: #97a7b0;
+    background-size: cover;
+    background-position: 50%;
+    color: #fff;
+    line-height: 20px;
+    <!--margin: 0 8px 8px 0;-->
+    padding: 8px;
+    position: relative;
+    text-decoration: none;
+}
+
+    /* Popup box BEGIN */
+.hover_bkgr_fricc{
+    background:rgba(0,0,0,.4);
+    cursor:pointer;
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    <!--font-size: 20px;-->
+    <!--margin: 20px;-->
+    <!--display: inline-block;-->
+    <!--font-weight: bold;-->
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+.icons  {
+                    background: none repeat scroll 0 0 #fff;
+                    height: 7px;
+                    width: 7px;
+                    line-height: 0;
+                    list-style: none outside none;
+                    margin-right: 15px;
+                    margin-top: 3px;
+                    vertical-align: top;
+                    border-radius:50%;
+                    pointer-events: none;
+                }
+
+
+.dropbtn {
+                    background-color: #4CAF50;
+                    position: fixed;
+                    color: white;
+                    font-size: 16px;
+                    border: none;
+                    cursor: pointer;
+                }
+.btn-right {
+                    right: 0.4em;
+                }
+
+                .btn-left, .btn-right {
+                    position: absolute;
+                    top: 0.24em;
+                }
+.showLeft{
+                    <!--background-color: #0d77b6 !important;-->
+                    <!--border:1px solid #0d77b6 !important;-->
+                    <!--text-shadow: none !important;-->
+                    color:#fff !important;
+                    padding:10px;
+                }
+
+
+
+
+
+
+<!--/* On using dropdown menu (To right shift popuped) */-->
+<!--.navbar-fixed-left .navbar-nav > li > .dropdown-menu {-->
+  <!--margin-top: -50px;-->
+  <!--margin-left: 140px;-->
+<!--}-->
+    </style>
+
+</head>
+<body>
+<nav class="navbar navbar-light bg-light justify-content-between">
+    <dev class="row">
+        <dev class="col-sm-6">
+            <img width="20%" src="https://mstxs317jap2jkr871oardiejo-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/stitch-logo-red1.png">
+        </dev>
+        {% block navbar%}
+        {% endblock %}
+
+    </dev>
+</nav>
+{% block content%}
+{% endblock %}
+</body>
+</html>

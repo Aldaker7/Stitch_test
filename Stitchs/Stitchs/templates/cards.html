@@ -1,0 +1,151 @@
+{% extends 'css.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Stitch</title>
+</head>
+
+<!--sign out button on navbar-->
+{% block navbar %}
+
+<div class="col-sm-6" style="float:right;text-align:right">
+    <a class="btn btn-success my-2 my-sm-0" href="{%url 'logout' %}">Log out</a>
+</div>
+{%endblock%}
+
+{% block content %}
+        <body>
+
+
+<div class="navbar navbar-inverse navbar-fixed-left" style="background-color:#fff;color:#000">
+<h1 style="margin-left:10%;font-weight:bold">Cards</h1>
+ <!--<a class="navbar-brand trigger_popup_fricc"-->
+    <!--style='margin-top:20%;color:#fff;font-size:14px;font-weight: 400;font-family: Helvetica '><i class="fa fa-plus" style="color:#fff"></i> Create list</a>-->
+    <ul class="nav navbar-nav" stye="color:#000">
+
+        <li><a style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica' class="navbar-brand" href="{% url 'create_card' list_id%}"  >Create Card</a></li>
+        <li><a class="navbar-brand " style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'boards' %}">Home</a></li>
+        <li><a class="navbar-brand" style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'create_member' %}">Create member</a></li>
+        <li><a class="navbar-brand " style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'list_members' %}">Members</a></li>
+
+    </ul>
+</div>
+{% if create_card != True %}
+<div style="text-align:right; margin-right:10%;margin-top:2%">
+
+    <label for="sel2">Order by</label>
+    <select  id="sel2" onchange="location = this.value;">
+      {% if select == 1 %}
+      <option value="{%url 'cards' list_id 1%}" selected>New to Old</option>
+      <option value="{%url 'cards' list_id 2%}" >Old to New</option>
+      {% else %}
+      <option value="{%url 'cards' list_id 1%}" >New to Old</option>
+      <option value="{%url 'cards' list_id 2%}" selected>Old to New</option>
+      {% endif %}
+    </select>
+
+</div>
+{%endif%}
+    <div class="container col-md-6" style="width:200px;height:100px;background-color:#e1e5e8;">
+        <!--<a class='btn btn-primary' href="{% url 'create_card' list_id%}">Create New Card</a><br><br>-->
+<!--<a style="margin-top:3%" class="btn btn-primary" href="{% url 'create_card' list_id%}">Create one</a><br>-->
+        {% if cards_exist %}
+        {% for card in cards %}
+            {% if card.active == True %}
+
+            {{card.title}}<br>
+            {{card.description}}<br>
+            {{card.DueDate}}<br>
+            {{card.label_name}}<br>
+
+            <!--{{card.active}}<br>-->
+
+            <a style='margin-bottom:20%' class='btn btn-primary' href="{%url 'updates_card' card.id%}">edit</a>
+            <a style='margin-bottom:20%' class='btn btn-primary' href="{% url 'archive_card' card.id%}">archive</a><br>
+
+            {% endif %}
+        {% endfor %}
+
+        {% else %}
+            {% if not update_card_dic and not create_card %}
+        <h2>There are no cards</h2>
+
+        {% endif %}
+        {% endif %}
+        {% if create_card == True %}
+            <form method="POST" enctype="multipart/form-data" action="{%url 'create_card' list_id%}">
+                {% csrf_token %}
+                <label>Title</label><br>
+                {{form.title}}
+                <label>Description</label><br>
+                {{form.description}}
+                <label>Due date</label><br>
+                <input name="DueDate" type="date" required>
+                <label>Member</label><br>
+                {{form.member}}
+                <br>
+                <label>Label</label><br>
+                <select name="labels">
+                    {% if list_labels != None %}
+                    {% for label in list_labels %}
+                    {% if label.active == True %}
+                    <option value="{{label.id}}">{{label.title}}</option>
+                    {% endif %}
+                    {% endfor%}
+                    {% else %}
+                    <option></option>
+                     {% endif %}
+
+                </select><br><br>
+
+                <input type="submit" value="Create">
+                <a href="javascript:history.back()">Go Back</a>
+            </form>
+        {% endif %}
+
+        {% if update_card_dic %}
+            <form method="POST" enctype="multipart/form-data" action="{%url 'updates_card' update_card_dic.id%}">
+                {% csrf_token %}
+                <label for="title_card">Title</label><br>
+                <input type="text" name="title_card" value="{{update_card_dic.title}}" placeholder="Title" required><br>
+                <label for="description">Description</label><br>
+                <input type="text" name="description" value="{{update_card_dic.description}}" placeholder="description" required><br>
+                <label for="DueDate">Due Date</label><br>
+                <input type="date" name="DueDate" value="{{update_card_dic.DueDate}}" placeholder="Due Date" required><br>
+                <label for="list">List</label><br>
+                <select name="list_option" >
+
+                {% for i in list_options %}
+                    {% if i.active == True %}
+                    {%if update_card_dic.list == i.id %}
+
+                    <option value="{{i.id}}" selected>{{i.title}}</option>
+                    {% else %}
+                    <option value="{{i.id}}">{{i.title}}</option>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                </select><br>
+                <label for="labels_options">Label</label>
+                <select name="labels_options" >
+
+                {% for i in label_options %}
+                    {% if i.active == True %}
+                    {%if i.id == update_card_dic.labels %}
+
+                    <option value="{{i.id}}" selected>{{i.title}}</option>
+                    {% else %}
+                    <option value="{{i.id}}">{{i.title}}</option>
+                    {% endif %}
+                    {% endif %}
+                    {% endfor %}
+
+                </select><br>
+                <input type="submit" value="Update">
+                <a class="" href="javascript:history.back()">Go Back</a>
+            </form>
+        {% endif %}
+</div>
+
+        </body>
+{% endblock %}

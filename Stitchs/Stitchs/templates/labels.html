@@ -1,0 +1,53 @@
+{% extends 'css.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Stitch</title>
+</head>
+
+<!--sign out button on navbar-->
+{% block navbar %}
+
+<div class="col-sm-6" style="float:right;text-align:right">
+    <a class="btn btn-success my-2 my-sm-0" href="{%url 'logout' %}">Log out</a>
+</div>
+{%endblock%}
+
+{% block content %}
+
+<!--pop up screen for create-->
+<body>
+<div class="navbar navbar-inverse navbar-fixed-left" style="background-color:#fff;color:#000">
+<h1 style="margin-left:10%;font-weight:bold">Labels</h1>
+
+
+<ul class="nav navbar-nav" stye="color:#fff">
+ <li><a class="navbar-brand " style='margin-top:20%;color:#000;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'boards' %}">Home</a></li>
+    <!--<a class="navbar-brand " style='margin-top:20%;color:#fff;font-size:14px;font-weight: 400;font-family: Helvetica ' href="{%url 'list_members' %}">List Members</a>-->
+
+    </ul>
+</div>
+
+{%if list_labels%}
+<ul>
+    {% for label in labels%}
+    {% if label.active %}
+    <li>{{label.title}}</li>
+    <a href="{%url 'archive_label' label.id%}">Archive </a>
+    <a href="{%url 'rename_label' label.id%}"> Rename</a>
+    {% endif %}
+    {%endfor%}
+</ul>
+{% endif %}
+
+{% if rename %}
+<form class="login-form page_form " enctype="multipart/form-data" action="{%url 'rename_label' label.id%}" method="post">
+    {% csrf_token %}
+    <input name='title_label' type="text" value="{{label.title}}">
+    <input  type="submit" value="Rename Label">
+    <a href="javascript:history.back()">Go Back</a>
+</form>
+{% endif %}
+
+</body>
+
+{% endblock %}

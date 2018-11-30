@@ -1,0 +1,35 @@
+{% extends 'css.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>Stitch</title>
+</head>
+{% block content %}
+<body>
+<!--<nav class="navbar" style="background-color:#298FCA">-->
+  <!--<span class="navbar-brand mb-0 h1">-->
+
+      <!--<img src="https://mstxs317jap2jkr871oardiejo-wpengine.netdna-ssl.com/wp-content/uploads/2014/04/stitch-logo-red1.png">-->
+  <!--</span>-->
+<!--</nav>-->
+<!--Sign in-->
+<div class="login-page">
+    <h2 style="text-align:center;font-weight:bold;font-size:35px;height:100%;font-family: 'jaf-facitweb'">Sign in</h2>
+  <div class="form">
+    <form class="register-form page_form ">
+      <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <!--<p class="message">Already registered? <a href="#">Sign In</a></p>-->
+    </form>
+    <form class="login-form page_form " method="POST">
+        {% csrf_token %}
+      <input type="text" name="username" placeholder="username"/>
+      <input type="password" name="password" placeholder="password"/>
+        <input value="login" type="submit">
+      <p class="message">Not registered? <a href="{% url 'signup' %}">Create an account</a></p>
+    </form>
+  </div>
+</div>
+</body>
+{% endblock %}
